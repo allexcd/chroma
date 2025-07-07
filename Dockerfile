@@ -30,6 +30,9 @@ RUN --mount=type=cache,target=/root/.cache/pip pip install maturin cffi patchelf
 RUN --mount=type=cache,target=/root/.cache/pip pip install --upgrade --prefix="/install" -r requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip if [ "$REBUILD_HNSWLIB" = "true" ]; then pip install --no-binary :all: --force-reinstall --prefix="/install" chroma-hnswlib; fi
 
+# 👇 Add this line to fix your issue:
+RUN pip install fastapi uvicorn[standard]
+
 # Install gRPC tools for Python with fixed version
 RUN pip install grpcio==1.58.0 grpcio-tools==1.58.0
 # Copy source files to build Protobufs
